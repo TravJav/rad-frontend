@@ -1,0 +1,32 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: datasceince-backend:latest
+
+    working_directory: /app
+
+    steps:
+      - checkout
+
+      - run:
+          name: Build and test
+          command: |
+            ./scripts/build_container.sh
+            docker-compose api-data-science:latest up
+            docker exec -it api-data-science:latest ./scripts/run-tests.sh
+
+      - persist_to_workspace:
+          root: /app
+          paths:
+            - .
+
+
+      # Push Docker Image to ECR
+      - run:
+          name: Push Docker Image to ECR
+          command: |
+            docker push 692482025845.dkr.ecr.us-east-1.amazonaws.com/datasceince-backend:latest
+            docker tag datasceince-backend:latest 692482025845.dkr.ecr.us-east-1.amazonaws.com/datasceince-backend:latest
+

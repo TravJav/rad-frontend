@@ -8,12 +8,18 @@ packages = [{include = "flask_application"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
-flask = "^2.0.1"
 psycopg-binary = "^3.1.17"
 mock = "^5.1.0"
 pytest = "^7.4.4"
 cached-property = "^1.5.2"
-flask-jwt-extended = "^4.6.0"
+pyjwt = "^2.8.0"
+flask = "2.1.0"
+flask-jwt-extended = "4.3.1"
+escape = "^1.1"
+werkzeug = "2.2.2"
+bcrypt = "^4.1.2"
+psycopg2-binary = "^2.9.9"
+faker = "^22.1.0"
 
 [tool.poetry.group.dev.dependencies]
 SQLAlchemy = "^2.0.25"
