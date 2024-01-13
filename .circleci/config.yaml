@@ -29,4 +29,3 @@ jobs:
           command: |
             docker push 692482025845.dkr.ecr.us-east-1.amazonaws.com/datasceince-backend:latest
             docker tag datasceince-backend:latest 692482025845.dkr.ecr.us-east-1.amazonaws.com/datasceince-backend:latest
-
