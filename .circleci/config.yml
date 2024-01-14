@@ -31,7 +31,7 @@ jobs:
               && pip install -U --no-cache-dir pip poetry \
               && pip install lockfile \
               && pip install Flask \
-              && pip install python-dotenv
+              && pip install python-dotenv \
               && pip install pytest
 
       - run:
