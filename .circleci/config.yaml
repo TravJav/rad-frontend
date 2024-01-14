@@ -1,14 +1,77 @@
+# version: 2.1
+
+# jobs:
+#   build:
+#     docker:
+#       - image: datasceince-backend:latest
+
+#     working_directory: /app
+
+#     steps:
+#       - checkout
+
+#       - run:
+#           name: Build and test
+#           command: |
+#             ./scripts/build_container.sh
+#             docker-compose api-data-science:latest up
+#             docker exec -it api-data-science:latest ./scripts/run-tests.sh
+
+#       - persist_to_workspace:
+#           root: /app
+#           paths:
+#             - .
+
+
+
+
+
 version: 2.1
+
+executors:
+  python_executor:
+    docker:
+      - image: circleci/node:latest
 
 jobs:
   build:
-    docker:
-      - image: datasceince-backend:latest
-
-    working_directory: /app
-
+    executor: python_executor
+    working_directory: ~/app
     steps:
       - checkout
+
+      # Enable Docker-in-Docker (DinD)
+      - setup_remote_docker:
+          version: 20.10.14
+
+
+
+      - run:
+          name: Create working directory
+          command: mkdir -p /home/circleci/app
+
+      - run:
+          name: Change working directory
+          command: cd /home/circleci/app
+
+      - run:
+          name: Set environment variables
+          command: |
+            echo "DB_HOST=invictusdb.c18a4i83deqo.us-east-2.rds.amazonaws.com" >> $BASH_ENV
+            echo "DB_PORT=5432" >> $BASH_ENV
+            echo "DB_NAME=jefe" >> $BASH_ENV
+            echo "DB_USER=jefe" >> $BASH_ENV
+            echo "DB_PASSWORD=$DB_PASSWORD" >> $BASH_ENV
+            # Add other environment variables here...
+
+      - run:
+          name: Create application directory
+          command: mkdir -p /home/circleci/app
+
+      - restore_cache:
+          keys:
+            - v1-{{ .Branch }}-
+            - v1-
 
       - run:
           name: Build and test
@@ -17,12 +80,55 @@ jobs:
             docker-compose api-data-science:latest up
             docker exec -it api-data-science:latest ./scripts/run-tests.sh
 
-      - persist_to_workspace:
-          root: /app
-          paths:
-            - .
+      - run:
+          name: Debug
+          command: pwd
+
+      - run:
+          name: Fix permissions
+          command: sudo chown -R circleci:circleci /home/circleci/
 
 
+      # Install the AWS CLI (if not already available in the chosen CircleCI Docker image)
+      - run:
+          name: Install AWS CLI
+          command: sudo apt-get install -y awscli
+
+      # Authenticate with ECR
+      - run:
+          name: Authenticate with ECR
+          command: |
+            aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+            aws configure set AWS_SECRET_ACCESS_KEY $SECRET_ACCESS_KEY
+            aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 692482025845.dkr.ecr.us-east-1.amazonaws.com
+
+      # Build the Docker image and tag it with the ECR repository URI
+      - run:
+          name: Build and Tag Docker Image
+          command: |
+            ./scripts/build_container.sh
+            docker tag datascience-backend:latest 692482025845.dkr.ecr.us-east-1.amazonaws.com/datasceince-backend:latest
+
+      - run:
+          name: Run image
+          command: |
+            docker run -d -p 443:443 \
+              -e RUNTIME_ENVIRONMENT=DEV
+              -e IS_MIDDLEWARE_ENABLED=true
+              -e DB_NAME=$DB_NAME
+              -e DATABASENAME=$DATABASENAME
+              -e DB_HOST=$DB_HOST
+              -e DB_PORT=$DB_PORT
+              -e DB_USER=$DB_USER
+              -e DB_PASSWORD=$DB_PASSWORD
+              -e BUCKETNAME=invictus-connected-storage
+              -e ROUTE_LOGGING=TRUE
+              -e ACCESS_KEY_ID=$ACCESS_KEY_ID
+              -e SECRET_ACCESS_KEY=$SECRET_ACCESS_KEY
+              -e EMAIL=invictus.connected@gmail.com
+              -e JWT_SECRET=1234567890
+              datasceince-backend:latest > container_output.txt
+          
       # Push Docker Image to ECR
       - run:
           name: Push Docker Image to ECR
