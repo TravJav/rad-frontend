@@ -33,7 +33,7 @@ jobs:
               && pip install Flask \
               && pip install python-dotenv \
               && pip install pytest \
-              && pip install Faker
+              && pip install faker
 
       - run:
           name: Create working directory

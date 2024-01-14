@@ -21,7 +21,8 @@ RUN apt-get update \
     && pip install lockfile \
     && pip install Flask \
     && pip install python-dotenv \
-    && pip install pytest
+    && pip install pytest \
+    && pip install faker
 
 # Set the working directory
 WORKDIR /app
