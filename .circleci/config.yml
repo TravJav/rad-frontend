@@ -33,7 +33,7 @@ jobs:
               && pip install Flask \
               && pip install python-dotenv \
               && pip install pytest \
-              && pip install faker
+              && pip install faker \
               && tox \
               && poetry install
 
