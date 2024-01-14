@@ -65,14 +65,18 @@ jobs:
           command: ls
 
       - run:
-          name: go to project dir
-          command: cd app
-
-      - run:
-          name: Build and test
+          name: Build Container
           command: |
             ./scripts/build_container.sh
+
+      - run:
+          name: Init Container
+          command: |
             docker-compose up -d api_data_science
+
+      - run:
+          name: Run Tests
+          command: |
             docker exec -it api_data_science ./scripts/run-tests.sh
 
       - run:
