@@ -64,8 +64,8 @@ jobs:
           name: Build and test
           command: |
             ./scripts/build_container.sh
-            docker-compose api-data-science:latest up
-            docker exec -it api-data-science:latest ./scripts/run-tests.sh
+            docker-compose up -d api_data_science
+            docker exec -it api_data_science ./scripts/run-tests.sh
 
       - run:
           name: Debug
