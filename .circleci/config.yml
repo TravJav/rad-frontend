@@ -34,11 +34,7 @@ jobs:
               && pip install python-dotenv \
               && pip install pytest \
               && pip install faker \
-              && poetry install
 
-      - run:
-          name: Install Dependencies
-          command: pip install -r pyproject.toml
 
       - run:
           name: Create working directory
@@ -48,6 +44,10 @@ jobs:
           name: Change working directory
           command: cd /home/circleci/app
 
+      - run:
+          name: Install poetry packages
+          command: poetry install
+   
       - run:
           name: Set environment variables
           command: |
