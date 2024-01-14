@@ -85,7 +85,7 @@ jobs:
           command: |
             set -x
             echo "Logs Start"
-            docker logs api-data-science:latest
+            docker logs app_api-data-science_1
             echo "Logs End"
             docker ps
             set +x
