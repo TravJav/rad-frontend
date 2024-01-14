@@ -72,12 +72,12 @@ jobs:
       - run:
           name: Init Container
           command: |
-            docker-compose up -d api_data_science
+            docker-compose up -d api-data-science:latest
 
       - run:
           name: Run Tests
           command: |
-            docker exec -it api_data_science ./scripts/run-tests.sh
+            docker exec -it api-data-science:latest ./scripts/run-tests.sh
 
       - run:
           name: Debug
