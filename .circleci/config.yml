@@ -61,6 +61,14 @@ jobs:
             - v1-
 
       - run:
+          name: Debug
+          command: ls
+
+      - run:
+          name: go to project dir
+          command: cd app
+
+      - run:
           name: Build and test
           command: |
             ./scripts/build_container.sh
@@ -88,6 +96,7 @@ jobs:
             aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
             aws configure set AWS_SECRET_ACCESS_KEY $SECRET_ACCESS_KEY
             aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 692482025845.dkr.ecr.us-east-1.amazonaws.com
+            
 
       # Build the Docker image and tag it with the ECR repository URI
       - run:
