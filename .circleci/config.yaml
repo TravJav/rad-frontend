@@ -81,7 +81,7 @@ jobs:
       - run:
           name: Run image
           command: |
-            docker run -d -p 443:443 \
+            docker run -d -p 5000:443 \
               -e RUNTIME_ENVIRONMENT=DEV
               -e IS_MIDDLEWARE_ENABLED=true
               -e DB_NAME=$DB_NAME
@@ -96,7 +96,7 @@ jobs:
               -e SECRET_ACCESS_KEY=$SECRET_ACCESS_KEY
               -e EMAIL=invictus.connected@gmail.com
               -e JWT_SECRET=1234567890
-              datasceince-backend:latest > container_output.txt
+              datascience-backend:latest > container_output.txt
           
       # Push Docker Image to ECR
       - run:
