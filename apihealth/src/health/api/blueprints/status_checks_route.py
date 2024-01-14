@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify
 from flask_jwt_extended import jwt_required
 
 
+
 status_checks_bp = Blueprint("status_checks", __name__)
 
 @status_checks_bp.route("/status", methods=["GET"])
