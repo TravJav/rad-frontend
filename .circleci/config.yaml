@@ -15,6 +15,24 @@ jobs:
       - setup_remote_docker:
           version: 20.10.14
 
+      # Install necessary packages
+      - run:
+          name: Install necessary packages
+          command: |
+            sudo apt-get update \
+              && sudo apt-get -y install \
+                gcc \
+                python3-dev \
+                libpcre3 \
+                libpcre3-dev \
+                libpq-dev \
+                tox \
+                postgresql-server-dev-all \
+              && pip install -U --no-cache-dir pip poetry \
+              && pip install lockfile \
+              && pip install Flask \
+              && pip install python-dotenv
+
       - run:
           name: Create working directory
           command: mkdir -p /home/circleci/app
