@@ -32,6 +32,7 @@ jobs:
               && pip install lockfile \
               && pip install Flask \
               && pip install python-dotenv
+              && pip install pytest
 
       - run:
           name: Create working directory
