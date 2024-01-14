@@ -85,7 +85,7 @@ jobs:
           command: |
             set -x
             echo "Logs Start"
-            docker logs api-data-science
+            docker logs api-data-science:latest
             echo "Logs End"
             docker ps
             set +x
@@ -93,7 +93,7 @@ jobs:
           name: Run Tests
           command: |
             set -x
-            docker exec -it api-data-science ./scripts/run-tests.sh
+            docker exec -it api-data-science:latest ./scripts/run-tests.sh
             set +x
 
       - run:
