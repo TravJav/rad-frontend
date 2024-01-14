@@ -3,6 +3,7 @@ from typing import Type
 from flask import Request
 from flask_jwt_extended import get_jwt_identity
 
+
 def extract_payload(request: Type[Request]) -> dict:
     """
     called on every protected route in the blueprints
