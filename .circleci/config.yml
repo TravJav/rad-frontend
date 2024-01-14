@@ -15,6 +15,12 @@ jobs:
       - setup_remote_docker:
           version: 20.10.14
 
+      # Install Docker
+      - run:
+          name: Install Docker
+          command: |
+            apt-get update && apt-get install -y docker-ce
+
       # Install necessary packages
       - run:
           name: Install necessary packages
@@ -34,6 +40,7 @@ jobs:
               && pip install python-dotenv \
               && pip install pytest \
               && pip install faker \
+              && 
 
 
       - run:
