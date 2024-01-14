@@ -19,8 +19,8 @@ jobs:
       - run:
           name: Install necessary packages
           command: |
-            sudo apt-get update \
-              && sudo apt-get -y install \
+            apt-get update \
+              && apt-get -y install \
                 gcc \
                 python3-dev \
                 libpcre3 \
@@ -109,13 +109,13 @@ jobs:
 
       - run:
           name: Fix permissions
-          command: sudo chown -R circleci:circleci /home/circleci/
+          command: chown -R circleci:circleci /home/circleci/
 
 
       # Install the AWS CLI (if not already available in the chosen CircleCI Docker image)
       - run:
           name: Install AWS CLI
-          command: sudo apt-get install -y awscli
+          command: apt-get install -y awscli
 
       # Authenticate with ECR
       - run:
