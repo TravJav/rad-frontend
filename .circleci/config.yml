@@ -34,7 +34,10 @@ jobs:
               && pip install python-dotenv \
               && pip install pytest \
               && pip install faker \
-              && poetry install
+
+      - run:
+          name: Install Dependencies
+          command: pip install -r pyproject.toml
 
       - run:
           name: Create working directory
