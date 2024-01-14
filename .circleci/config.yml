@@ -81,9 +81,20 @@ jobs:
             set +x
 
       - run:
+          name: Check for build logs
+          command: |
+            set -x
+            echo "Logs Start"
+            docker logs api-data-science
+            echo "Logs End"
+            docker ps
+            set +x
+      - run:
           name: Run Tests
           command: |
+            set -x
             docker exec -it api-data-science ./scripts/run-tests.sh
+            set +x
 
       - run:
           name: Debug
