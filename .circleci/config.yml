@@ -70,9 +70,15 @@ jobs:
             ./scripts/build_container.sh
 
       - run:
-          name: Init Container
+          name: Launch Container
           command: |
-            docker-compose up -d api-data-science
+            set -x
+            echo "Starting Docker Compose Up"
+            docker-compose up -d
+            echo "Docker Compose Up completed"
+            echo "List images by name"
+            docker ps
+            set +x
 
       - run:
           name: Run Tests
