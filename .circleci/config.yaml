@@ -1,31 +1,3 @@
-# version: 2.1
-
-# jobs:
-#   build:
-#     docker:
-#       - image: datasceince-backend:latest
-
-#     working_directory: /app
-
-#     steps:
-#       - checkout
-
-#       - run:
-#           name: Build and test
-#           command: |
-#             ./scripts/build_container.sh
-#             docker-compose api-data-science:latest up
-#             docker exec -it api-data-science:latest ./scripts/run-tests.sh
-
-#       - persist_to_workspace:
-#           root: /app
-#           paths:
-#             - .
-
-
-
-
-
 version: 2.1
 
 executors:
@@ -39,12 +11,9 @@ jobs:
     working_directory: ~/app
     steps:
       - checkout
-
       # Enable Docker-in-Docker (DinD)
       - setup_remote_docker:
           version: 20.10.14
-
-
 
       - run:
           name: Create working directory
