@@ -4,6 +4,7 @@ from functools import partial, wraps
 from flask_jwt_extended import JWTManager, create_access_token
 from apihealth.src.health.api.services.helpers.project_util import ProjectUtilHelper
 
+
 # Fetch JWT_SECRET from environment or configuration
 JWT_SECRET = ProjectUtilHelper().get_runtime_env_variable("JWT_SECRET")
 
@@ -26,7 +27,7 @@ def generate_jwt_token(uuid: str):
 
 
 @jwt.expired_token_loader
-def expired_token_callback():
+def expired_token_callback(*args):
     return jsonify({
         'message': 'Token has expired',
         'error': 'token_expired'
