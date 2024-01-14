@@ -12,7 +12,6 @@ import subprocess
 import uuid
 from uuid import UUID
 
-
 class ContextManager:
     """
          the constructor is called with successfull instantiation of the object
