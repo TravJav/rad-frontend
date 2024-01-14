@@ -1,0 +1,78 @@
+version: '3.5'
+services:
+  apihealth-nginx:
+    image: nginx:latest
+    ports:
+      - '127.0.0.1:82:80'
+    links:
+      - apihealth
+    networks:
+      default:
+        aliases:
+          - apihealthdev.localhost
+  apihealth:
+    image: apihealth:latest
+    command: ./scripts/run-dev.sh
+    environment:
+      - RUNTIME_ENVIRONMENT=DEV
+      - IS_MIDDLEWARE_ENABLED=true
+      - DB_NAME=jefe
+      - DATABASENAME=postgres://jefe:3614041992Kingston@invictusdb.c18a4i83deqo.us-east-2.rds.amazonaws.com:5432/jefe
+      - DB_HOST=invictusdb.c18a4i83deqo.us-east-2.rds.amazonaws.com
+      - DB_PORT=5432
+      - DB_USER=jefe
+      - DB_PASSWORD=3614041992Kingston
+      - BUCKETNAME=invictus-connected-storage
+      - ROUTE_LOGGING=TRUE
+      - ACCESS_KEY_ID=AKIAIS3HBRMM5I3ZFPBA
+      - SECRET_ACCESS_KEY=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
+      - EMAIL=invictus.connected@gmail.com
+      - JWT_SECRET=1234567890
+
+    ports:
+      - '127.0.0.1:5000:5000'
+    depends_on:
+      health-pg:
+        condition: service_healthy
+    links:
+      - health-pg
+    volumes:
+      - ./apihealth:/opt/app
+      
+
+  health-pg:
+    image: postgres:9.6
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: healthapi
+
+    volumes:
+      - pg_dv:/var/lib/postgresql/data
+      - ./db/init-scripts:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "pg_isready", "-h", "health-pg", "-p", "5432", "-U", "postgres", "-d", "apihealth"]
+      interval: 10s
+      retries: 5
+      start_period: 2s
+
+   # was added in when transactional tests were made locally
+  # db-migrations:
+  #     image: apihealthdb:latest
+  #     build:
+  #       context: ./db
+  #     command: update
+  #     environment:
+  #       DB_NAME: healthapi
+  #       DB_DSN: health-pg
+  #       DB_PORT: 5432
+  #       DB_NAME_ROOT: healthapi
+  #       DB_USERNAME: postgres
+  #       DB_PASSWORD: password
+  #     volumes:
+  #       - ./db/changelog:/liquibase/changelog
+
+volumes:
+  pg_dv: ~
