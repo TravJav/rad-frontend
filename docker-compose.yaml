@@ -1,17 +1,17 @@
 version: '3.5'
 services:
-  apihealth-nginx:
+  api-data-science-nginx:
     image: nginx:latest
     ports:
       - '127.0.0.1:82:80'
     links:
-      - apihealth
+      - api-data-science
     networks:
       default:
         aliases:
-          - apihealthdev.localhost
-  apihealth:
-    image: apihealth:latest
+          - api-data-sciencedev.localhost
+  api-data-science:
+    image: api-data-science:latest
     command: ./scripts/run-dev.sh
     environment:
       - RUNTIME_ENVIRONMENT=DEV
@@ -37,7 +37,7 @@ services:
     links:
       - health-pg
     volumes:
-      - ./apihealth:/opt/app
+      - ./api-data-science:/opt/app
       
 
   health-pg:
@@ -53,14 +53,14 @@ services:
       - pg_dv:/var/lib/postgresql/data
       - ./db/init-scripts:/docker-entrypoint-initdb.d
     healthcheck:
-      test: ["CMD", "pg_isready", "-h", "health-pg", "-p", "5432", "-U", "postgres", "-d", "apihealth"]
+      test: ["CMD", "pg_isready", "-h", "health-pg", "-p", "5432", "-U", "postgres", "-d", "api-data-science"]
       interval: 10s
       retries: 5
       start_period: 2s
 
    # was added in when transactional tests were made locally
   # db-migrations:
-  #     image: apihealthdb:latest
+  #     image: api-data-sciencedb:latest
   #     build:
   #       context: ./db
   #     command: update
