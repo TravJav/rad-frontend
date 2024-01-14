@@ -93,7 +93,7 @@ jobs:
           name: Run Tests
           command: |
             set -x
-            docker exec -it api-data-science:latest ./scripts/run-tests.sh
+            docker exec -it app_api-data-science_1 ./scripts/run-tests.sh
             set +x
 
       - run:
