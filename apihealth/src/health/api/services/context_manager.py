@@ -63,7 +63,6 @@ class ContextManager:
                 ]
             },
         }
-        # determine caller id for logging info
         self.caller_id = inspect.getmodule(inspect.stack()[1][0]).__name__
         logging.info("Context manager entered from %s", self.caller_id)
 
@@ -181,5 +180,3 @@ class ContextManager:
         rnd = random.Random()
         random.Random().seed()  # seed defaults to os.urrandom
         return str(uuid.UUID(int=rnd.getrandbits(128), version=4))
-
-
