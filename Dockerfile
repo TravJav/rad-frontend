@@ -20,7 +20,8 @@ RUN apt-get update \
     && pip install -U --no-cache-dir pip poetry \
     && pip install lockfile \
     && pip install Flask \
-    && pip install python-dotenv
+    && pip install python-dotenv \
+    && pip install pytest
 
 # Set the working directory
 WORKDIR /app
