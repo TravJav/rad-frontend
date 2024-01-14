@@ -70,29 +70,15 @@ jobs:
             ./scripts/build_container.sh
 
       - run:
-            name: Run image
-            command: |
-              echo "Starting Docker Compose Up"
-              docker run -d -p 5000:443 \
-                -e RUNTIME_ENVIRONMENT=DEV
-                -e IS_MIDDLEWARE_ENABLED=true
-                -e DB_NAME=$DB_NAME
-                -e DATABASENAME=$DATABASENAME
-                -e DB_HOST=$DB_HOST
-                -e DB_PORT=$DB_PORT
-                -e DB_USER=$DB_USER
-                -e DB_PASSWORD=$DB_PASSWORD
-                -e BUCKETNAME=invictus-connected-storage
-                -e ROUTE_LOGGING=TRUE
-                -e ACCESS_KEY_ID=$ACCESS_KEY_ID
-                -e SECRET_ACCESS_KEY=$SECRET_ACCESS_KEY
-                -e EMAIL=invictus.connected@gmail.com
-                -e JWT_SECRET=1234567890
-                datascience-backend:latest > container_output.txt
-
-                echo "List images by name"
-                docker ps
-                set +x
+          name: Launch Container
+          command: |
+            set -x
+            echo "Starting Docker Compose Up"
+            docker-compose up -d
+            echo "Docker Compose Up completed"
+            echo "List images by name"
+            docker ps
+            set +x
 
       - run:
           name: Check for build logs
