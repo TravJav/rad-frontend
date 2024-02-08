@@ -4,7 +4,7 @@ FROM python:3.11 AS base-stage
 
 ENV NEW_RELIC_MONITOR_MODE=false
 ENV LOGGING_PATH /tmp/logs/
-ENV FLASK_APP=apiheath.health.api:app
+ENV FLASK_APP=radpair.health.api:app
 ENV FLASK_ENV=development
 ENV FLASK_DEBUG=1
 

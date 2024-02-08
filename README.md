@@ -1,13 +1,11 @@
-# smart-backend
-
-1. from the root dir
-
-./scripts/run-dev.sh
-dc up -d
-
-find the status check endpoint: http://127.0.0.1:5000/status
+# Running the FRONTEND application
 
 
-set up new relic:
+## ATT as a precondition to running the app properly you need to have Docker installed on your local machine and running this is required because the backend application in the backend-app directory is a precondition to run the app and query chatgpt, there will be another README in the directory for the backend
 
-curl -Ls https://download.newrelic.com/install/newrelic-cli/scripts/install.sh | bash && sudo NEW_RELIC_API_KEY=NRAK-DLQWOURKDG2ZQR8CT9F4VNJ9PLU NEW_RELIC_ACCOUNT_ID=4319216 /usr/local/bin/newrelic install
+[Start here or proceed to run without a server](./backend-app/README.md)
+
+1. npm i within the project directory or the same level as this README
+2. after the node packages have been installed run npm start
+3. default port should be 3000, if you have something else running on this port you will get a prompt to run on the next available port starting from 3001 and up
+4. navigate to your browser and you should be presented with the "Please Login View" you can bypass the sign in by naviagting to the /dashboard directory manually
