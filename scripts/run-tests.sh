@@ -2,4 +2,4 @@
 
 cd "$(dirname "$0")" || exit
 
-pytest ../apihealth/tests
+pytest ../radpair/tests
