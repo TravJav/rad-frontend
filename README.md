@@ -57,6 +57,10 @@ I added the 404 page here to highlight realism in the sense that how would we ha
 
 # If I had more time
 
+## Paths
+ components and assets, there is a easier way and that to define them in the file where we can define the source paths along with other files like the pages to save guessing paths when our application gets very big
+
+
 
 ## Linter
 If I had more time for this application I would activate the linter to enforce more congruency, the only reason why I did not here is because it would have took a large chunk of my time probably an hour to work through them all. To enforce the linter just remove the prefix to .eslintrc.js and you can run the linter through the npm script
@@ -86,3 +90,15 @@ Adding real authentication would have been real nice, I was aiming for this but 
 
 If given more time I would like to take a step back and think about this a bit more, understand the context better
 the user requirements? what does our user need from this dashboard? what types of actions would they want available from the immediate side drawer, should we save the chat history? should we enable speech dictation for users that have issues typing or read the chatgpt responses outloud? these are all things we have to ask ourselves when creating a professional application
+
+
+## Error Handling
+ Error handling on the frontend with javascript is kind of different, we can console log it, alert it or present a nice message to the user. I am using Material UI alerts to message the user about any success or errors to always keep the user informed.
+
+
+# Design patterns
+
+With this application it's fairly simple I am not using any special design pattern here other than the React library and utilizing states and prop in the proper way along with the lifecycle hooks in the clas component and functional based component. I like to use functional based components when the component is small or not too smart like the Header, it doesnt really do too much and the the state it uses is easy to follow, when things grow I have a bias to go back to classes since I find it a bit easier to organize abstraction and I like everything encapsulated as I find it easier to follow and jump through but this is subjective but I find state is easier to understand or keep track of as well, using the hooks in the functional based component can get messy along with the lifecycle hooks too.
+
+# Thinking ahead
+Extras, I attempted to add in things that would be there if this were a real project thinking ahead like circleci config and pull request template
