@@ -7,7 +7,7 @@
 
 ## ATT as a precondition to running the app properly you need to have Docker installed on your local machine and running this is required because the backend application in the backend-app directory is a precondition to run the app and query chatgpt, there will be another README in the directory for the backend
 
-[Start here or proceed to run without a server](./backend-app/README.md)
+[Start here or proceed to run without a server](./https://github.com/TravJav/rad-backend/blob/main/README.md)
 
 1. npm i within the project directory or the same level as this README, please do not commit the node_modules the .gitignore should do it's job.
 2. after the node packages have been installed run npm start
@@ -40,7 +40,13 @@ Again we have the Dashboard view but this time we see a few different things and
 
 ![Alt text](./src/assets/after_question.png "Post Question")
 
+## Dashboard Drawer
 
+What's this for? the idea although not hooked up to other actions would allow the user to look through different reports the way I would see this app is the Dashboard page would be one of many potentially in this app, I beleive the side drawer should be present in all Authenticated views to allow the user minimal hoop-jumping to access reports, provider(s) ( insurance ) lookups and other medical information pertaining to the domain that we'd be working in. I also on the main header added a dark theme to give the user more control over their enviornment, I would capture any user settings or defaults using a DB for example dark_theme=True in a column in a table called user_settings
+
+
+
+![Alt text](./src/assets/side_drawer.png "Drawer on Dashboard")
 
 ## Not Found
 
